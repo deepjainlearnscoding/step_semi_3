@@ -1,39 +1,69 @@
-package string.class_problems;
-
 import java.util.Scanner;
 
-public class Palindromme {
+public class q5 {
 
-    static boolean isPalindrome(String text) {
+    static String normalizeReference(String raw) {
 
-        int start = 0;
-        int end = text.length() - 1;
+        raw = raw.trim();
 
-        while (start < end) {
+        String bankCode = raw.substring(0, 3).toUpperCase();
+        String rest = raw.substring(3);
 
-            if (text.charAt(start) != text.charAt(end)) {
-                return false;
-            }
+        return bankCode + rest;
+    }
 
-            start++;
-            end--;
+    static String validateAndFormat(String reference) {
+
+        if (reference.length() != 14) {
+            return "Invalid: wrong length";
         }
 
-        return true;
+        for (int i = 0; i < 3; i++) {
+
+            if (!Character.isLetter(reference.charAt(i))) {
+                return "Invalid: bank code must be 3 letters";
+            }
+        }
+
+        for (int i = 3; i < reference.length(); i++) {
+
+            if (!Character.isDigit(reference.charAt(i))) {
+                return "Invalid: body must contain only digits";
+            }
+        }
+
+        String bankCode = reference.substring(0, 3);
+        String date = reference.substring(3, 9);
+        String sequence = reference.substring(9, 14);
+
+        StringBuilder result = new StringBuilder();
+
+        result.append("[");
+        result.append(bankCode);
+        result.append("] DATE: ");
+
+        result.append(date.substring(0, 2));
+        result.append("/");
+        result.append(date.substring(2, 4));
+        result.append("/");
+        result.append(date.substring(4, 6));
+
+        result.append(" | SEQ: ");
+        result.append(sequence);
+
+        return result.toString();
     }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a word: ");
-        String text = sc.next();
+        System.out.print("Enter transaction reference: ");
+        String raw = sc.nextLine();
 
-        if (isPalindrome(text)) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not Palindrome");
-        }
+        String normalized = normalizeReference(raw);
+
+        System.out.println(validateAndFormat(normalized));
 
         sc.close();
     }
