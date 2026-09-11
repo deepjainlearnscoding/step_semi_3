@@ -1,47 +1,33 @@
-package string.assigment_problems;
-
 import java.util.Scanner;
 
-public class DuplicateSeats {
+public class q2 {
 
-    static void checkDuplicateSeats(int[] seatNumbers) {
+    static String reverseEachWord(String sentence) {
 
-        boolean found = false;
+        String[] words = sentence.split(" ");
+        String result = "";
 
-        for (int i = 0; i < seatNumbers.length; i++) {
+        for (int i = 0; i < words.length; i++) {
 
-            for (int j = i + 1; j < seatNumbers.length; j++) {
+            StringBuilder sb = new StringBuilder(words[i]);
+            result = result + sb.reverse();
 
-                if (seatNumbers[i] == seatNumbers[j]) {
-                    System.out.println(
-                        "Duplicate Seat Number Found: " + seatNumbers[i]
-                    );
-                    found = true;
-                }
+            if (i < words.length - 1) {
+                result = result + " ";
             }
         }
 
-        if (!found) {
-            System.out.println("No Duplicate Seats Found");
-        }
+        return result;
     }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter number of seats: ");
-        int n = sc.nextInt();
+        System.out.print("Enter sentence: ");
+        String sentence = sc.nextLine();
 
-        int[] seats = new int[n];
-
-        System.out.println("Enter seat numbers:");
-
-        for (int i = 0; i < n; i++) {
-            seats[i] = sc.nextInt();
-        }
-
-        checkDuplicateSeats(seats);
+        System.out.println(reverseEachWord(sentence));
 
         sc.close();
     }
