@@ -1,48 +1,38 @@
-package string.assigment_problems;
+class HallTicket {
 
-import java.util.Scanner;
+    String studentName;
+    int seatNumber;
 
-public class DuplicateSeats {
-
-    static void checkDuplicateSeats(int[] seatNumbers) {
-
-        boolean found = false;
-
-        for (int i = 0; i < seatNumbers.length; i++) {
-
-            for (int j = i + 1; j < seatNumbers.length; j++) {
-
-                if (seatNumbers[i] == seatNumbers[j]) {
-                    System.out.println(
-                        "Duplicate Seat Number Found: " + seatNumbers[i]
-                    );
-                    found = true;
-                }
-            }
-        }
-
-        if (!found) {
-            System.out.println("No Duplicate Seats Found");
-        }
+    HallTicket(String studentName, int seatNumber) {
+        this.studentName = studentName;
+        this.seatNumber = seatNumber;
     }
+}
 
+public class Ticket {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        HallTicket priya =
+            new HallTicket("Priya", 0);
 
-        System.out.print("Enter number of seats: ");
-        int n = sc.nextInt();
+        HallTicket copy = priya;
 
-        int[] seats = new int[n];
+        copy.seatNumber = 45;
 
-        System.out.println("Enter seat numbers:");
+        HallTicket separate =
+            new HallTicket("Priya", 45);
 
-        for (int i = 0; i < n; i++) {
-            seats[i] = sc.nextInt();
-        }
+        System.out.println(
+            "Priya's seatNumber (via first variable): "
+            + priya.seatNumber
+        );
 
-        checkDuplicateSeats(seats);
+        System.out.println(
+            "copy == priya: " + (copy == priya)
+        );
 
-        sc.close();
+        System.out.println(
+            "separate == priya: " + (separate == priya)
+        );
     }
 }

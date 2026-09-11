@@ -1,46 +1,45 @@
-package string.assigment_problems;
+class Employee {
 
-import java.util.Scanner;
+    String empId;
+    String empName;
+    double salary;
+    boolean isIntern;
 
-public class  LongestStreak{
+    Employee(String empId, String empName, double salary) {
 
-    static void findLongestStreak(String signalLog) {
-
-        int currentCount = 1;
-        int maxCount = 1;
-
-        char maxColor = signalLog.charAt(0);
-
-        for (int i = 1; i < signalLog.length(); i++) {
-
-            if (signalLog.charAt(i) == signalLog.charAt(i - 1)) {
-                currentCount++;
-            } 
-            else {
-                currentCount = 1;
-            }
-
-            if (currentCount > maxCount) {
-                maxCount = currentCount;
-                maxColor = signalLog.charAt(i);
-            }
-        }
-
-        System.out.println(
-            "Longest Streak: '" + maxColor +
-            "' repeated " + maxCount + " times"
-        );
+        this.empId = empId;
+        this.empName = empName;
+        this.salary = salary;
+        this.isIntern = false;
     }
 
+    Employee(String empId, String empName) {
+
+        this(empId, empName, 0);
+        this.isIntern = true;
+    }
+
+    void printProfile() {
+
+        System.out.println(
+            empId + " | " +
+            empName + " | Rs " +
+            salary + " | Intern: " +
+            isIntern
+        );
+    }
+}
+
+public class EmpProfile {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        Employee permanent =
+            new Employee("E-101", "Divya", 65000);
 
-        System.out.print("Enter signal log: ");
-        String signalLog = sc.next();
+        Employee intern =
+            new Employee("E-102", "Arjun");
 
-        findLongestStreak(signalLog);
-
-        sc.close();
+        permanent.printProfile();
+        intern.printProfile();
     }
 }

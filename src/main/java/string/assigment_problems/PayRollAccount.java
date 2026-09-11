@@ -1,61 +1,53 @@
-import java.util.*;
+class PayrollAccount {
 
-public class FilteredWordFrequency {
+    private double basicSalary;
+    private double bonus;
 
-    static void printFilteredWordFrequency(String feedback) {
+    PayrollAccount(double basicSalary) {
 
-        feedback = feedback.toLowerCase();
-        feedback = feedback.replace(".", "");
-        feedback = feedback.replace(",", "");
-
-        String[] words = feedback.split("\\s+");
-
-        String[] stopWords = {
-            "the", "was", "and", "a", "is", "of", "in"
-        };
-
-        HashMap<String, Integer> frequency = new HashMap<>();
-
-        for (String word : words) {
-
-            boolean isStopWord = false;
-
-            for (String stop : stopWords) {
-                if (word.equals(stop)) {
-                    isStopWord = true;
-                    break;
-                }
-            }
-
-            if (!isStopWord) {
-                frequency.put(
-                    word,
-                    frequency.getOrDefault(word, 0) + 1
-                );
-            }
+        if (basicSalary < 0) {
+            System.out.println("Invalid salary. Starting with 0.");
+            this.basicSalary = 0;
+        } else {
+            this.basicSalary = basicSalary;
         }
 
-        ArrayList<Map.Entry<String, Integer>> list =
-                new ArrayList<>(frequency.entrySet());
+        bonus = 0;
+    }
 
-        list.sort((a, b) -> b.getValue() - a.getValue());
+    public void creditBonus(double amount) {
 
-        for (Map.Entry<String, Integer> entry : list) {
-            System.out.println(
-                entry.getKey() + ": " + entry.getValue()
-            );
+        if (amount <= 0) {
+            System.out.println("Bonus rejected");
+        } else {
+            bonus += amount;
+            System.out.println("Bonus credited: Rs " + amount);
         }
     }
 
+    public void deductTax(double percent) {
+
+        if (percent < 0 || percent > 100) {
+            System.out.println("Invalid tax percentage");
+        } else {
+            basicSalary = basicSalary - (basicSalary * percent / 100);
+            System.out.println("Tax deducted: " + percent + "%");
+        }
+    }
+
+    public double getNetSalary() {
+        return basicSalary + bonus;
+    }
+}
+
+public class PayRollAccount {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        PayrollAccount account = new PayrollAccount(50000);
 
-        System.out.print("Enter feedback: ");
-        String feedback = sc.nextLine();
+        account.creditBonus(5000);
+        account.deductTax(10);
 
-        printFilteredWordFrequency(feedback);
-
-        sc.close();
+        System.out.println("Net salary: Rs " + account.getNetSalary());
     }
 }

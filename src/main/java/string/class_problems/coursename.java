@@ -1,66 +1,50 @@
-package string.class_problems;
+class Course {
 
-import java.util.*;
+    String code;
+    String title;
+    int credits;
+    int labCredits;
 
-public class BMI {
-
-    static String getBmiStatus(double bmi) {
-
-        if (bmi < 18.5) {
-            return "Underweight";
-        }
-        else if (bmi < 25) {
-            return "Normal";
-        }
-        else if (bmi < 30) {
-            return "Overweight";
-        }
-        else {
-            return "Obese";
-        }
+    Course(String code, String title, int credits, int labCredits) {
+        this.code = code;
+        this.title = title;
+        this.credits = credits;
+        this.labCredits = labCredits;
     }
 
-    static void printWellnessReport(double[] heights, double[] weights) {
-
-        System.out.println("\n------------------------------------------------");
-        System.out.println("Person\tHeight\tWeight\tBMI\tStatus");
-        System.out.println("------------------------------------------------");
-
-        for (int i = 0; i < heights.length; i++) {
-
-            double bmi = weights[i] / (heights[i] * heights[i]);
-
-            String status = getBmiStatus(bmi);
-
-            System.out.printf(
-                    "%d\t%.2f\t%.2f\t%.2f\t%s\n",
-                    i + 1,
-                    heights[i],
-                    weights[i],
-                    bmi,
-                    status
-            );
-        }
+    Course(String code, String title, int credits) {
+        this(code, title, credits, 0);
     }
 
+    int totalCredits() {
+        return credits + labCredits;
+    }
+}
+
+public class coursename {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        Course theory = new Course(
+            "21CSC201J",
+            "Data Structures",
+            4
+        );
 
-        double[] heights = new double[5];
-        double[] weights = new double[5];
+        Course lab = new Course(
+            "21CSC205L",
+            "DSA Lab",
+            3,
+            1
+        );
 
-        for (int i = 0; i < 5; i++) {
+        System.out.println(
+            theory.code + " total credits: " +
+            theory.totalCredits()
+        );
 
-            System.out.print("Enter height of person " + (i + 1) + " (m): ");
-            heights[i] = sc.nextDouble();
-
-            System.out.print("Enter weight of person " + (i + 1) + " (kg): ");
-            weights[i] = sc.nextDouble();
-        }
-
-        printWellnessReport(heights, weights);
-
-        sc.close();
+        System.out.println(
+            lab.code + " total credits: " +
+            lab.totalCredits()
+        );
     }
 }
