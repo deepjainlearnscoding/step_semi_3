@@ -1,33 +1,35 @@
-package string.class_problems;
+import java.util.Scanner;
 
-import java.util.*;
+public class FileExtension {
 
-public class ReverseName {
+    static String validateFileExtension(String filename) {
 
-    static String reverseCustomerName(String customerName) {
+        int dot = filename.lastIndexOf('.');
 
-        char[] characters = customerName.toCharArray();
-
-        String reversed = "";
-
-        for (int i = characters.length - 1; i >= 0; i--) {
-            reversed = reversed + characters[i];
+        if (dot == -1) {
+            return "Rejected - invalid file type";
         }
 
-        return reversed;
+        String extension = filename.substring(dot + 1);
+
+        if (extension.equalsIgnoreCase("pdf") ||
+            extension.equalsIgnoreCase("docx") ||
+            extension.equalsIgnoreCase("zip")) {
+
+            return "Accepted";
+        }
+
+        return "Rejected - invalid file type";
     }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter customer name: ");
-        String customerName = sc.nextLine();
+        System.out.print("Enter filename: ");
+        String filename = sc.nextLine();
 
-        String reversedName = reverseCustomerName(customerName);
-
-        System.out.println("Original Name: " + customerName);
-        System.out.println("Reversed Name: " + reversedName);
+        System.out.println(validateFileExtension(filename));
 
         sc.close();
     }
