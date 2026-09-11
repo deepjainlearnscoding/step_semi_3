@@ -1,40 +1,52 @@
-package string.class_problems;
+class MessWallet {
 
-import java.util.Scanner;
+    private double balance;
 
-public class Palindromme {
-
-    static boolean isPalindrome(String text) {
-
-        int start = 0;
-        int end = text.length() - 1;
-
-        while (start < end) {
-
-            if (text.charAt(start) != text.charAt(end)) {
-                return false;
-            }
-
-            start++;
-            end--;
+    MessWallet(double balance) {
+        if (balance < 0) {
+            System.out.println("Invalid opening balance. Starting with 0.");
+            this.balance = 0;
+        } else {
+            this.balance = balance;
         }
-
-        return true;
     }
 
+    public void topUp(double amount) {
+
+        if (amount <= 0) {
+            System.out.println("Top-up rejected: invalid amount");
+        } else {
+            balance += amount;
+        }
+    }
+
+    public void deduct(double amount) {
+
+        if (amount > balance) {
+            System.out.println("Deduct rejected: insufficient balance");
+        } else if (amount <= 0) {
+            System.out.println("Deduct rejected: invalid amount");
+        } else {
+            balance -= amount;
+        }
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+public class wallet {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        MessWallet wallet = new MessWallet(500);
 
-        System.out.print("Enter a word: ");
-        String text = sc.next();
+        wallet.topUp(200);
 
-        if (isPalindrome(text)) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not Palindrome");
-        }
+        System.out.println("Balance after top-up: " + wallet.getBalance());
 
-        sc.close();
+        wallet.deduct(1000);
+
+        System.out.println("Final balance: " + wallet.getBalance());
     }
 }
