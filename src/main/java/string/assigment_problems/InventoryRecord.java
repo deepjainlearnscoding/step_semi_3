@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class q3 {
+public class InventoryRecord {
 
     static void parseInventoryRecord(String csvLine) {
 
