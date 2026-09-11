@@ -1,65 +1,37 @@
-package string.class_problems;
+import java.util.Scanner;
 
-import java.util.*;
+public class q1 {
 
-public class BMI {
+    static void countVowelsAndConsonants(String text) {
 
-    static String getBmiStatus(double bmi) {
+        int vowels = 0;
+        int consonants = 0;
 
-        if (bmi < 18.5) {
-            return "Underweight";
+        for (int i = 0; i < text.length(); i++) {
+
+            char ch = Character.toLowerCase(text.charAt(i));
+
+            if (ch == 'a' || ch == 'e' || ch == 'i' ||
+                ch == 'o' || ch == 'u') {
+                vowels++;
+            }
+            else if (ch >= 'a' && ch <= 'z') {
+                consonants++;
+            }
         }
-        else if (bmi < 25) {
-            return "Normal";
-        }
-        else if (bmi < 30) {
-            return "Overweight";
-        }
-        else {
-            return "Obese";
-        }
-    }
 
-    static void printWellnessReport(double[] heights, double[] weights) {
-
-        System.out.println("\n------------------------------------------------");
-        System.out.println("Person\tHeight\tWeight\tBMI\tStatus");
-        System.out.println("------------------------------------------------");
-
-        for (int i = 0; i < heights.length; i++) {
-
-            double bmi = weights[i] / (heights[i] * heights[i]);
-
-            String status = getBmiStatus(bmi);
-
-            System.out.printf(
-                    "%d\t%.2f\t%.2f\t%.2f\t%s\n",
-                    i + 1,
-                    heights[i],
-                    weights[i],
-                    bmi,
-                    status
-            );
-        }
+        System.out.println("Vowels: " + vowels);
+        System.out.println("Consonants: " + consonants);
     }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        double[] heights = new double[5];
-        double[] weights = new double[5];
+        System.out.print("Enter text: ");
+        String text = sc.nextLine();
 
-        for (int i = 0; i < 5; i++) {
-
-            System.out.print("Enter height of person " + (i + 1) + " (m): ");
-            heights[i] = sc.nextDouble();
-
-            System.out.print("Enter weight of person " + (i + 1) + " (kg): ");
-            weights[i] = sc.nextDouble();
-        }
-
-        printWellnessReport(heights, weights);
+        countVowelsAndConsonants(text);
 
         sc.close();
     }
