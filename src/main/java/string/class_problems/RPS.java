@@ -1,4 +1,4 @@
-package game.class_problems;
+package string.class_problems;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package array.assigment_problems;
+package string.assigment_problems;
 
 import java.util.Scanner;
 
