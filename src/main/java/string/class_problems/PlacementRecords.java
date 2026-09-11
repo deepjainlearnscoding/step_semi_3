@@ -1,34 +1,30 @@
-package string.class_problems;
+class PlacementRecord {
+    String studentName;
+    String company;
+    double packageLpa;
 
-import java.util.*;
-
-public class ReverseName {
-
-    static String reverseCustomerName(String customerName) {
-
-        char[] characters = customerName.toCharArray();
-
-        String reversed = "";
-
-        for (int i = characters.length - 1; i >= 0; i--) {
-            reversed = reversed + characters[i];
-        }
-
-        return reversed;
+    PlacementRecord(String studentName, String company, double packageLpa) {
+        this.studentName = studentName;
+        this.company = company;
+        this.packageLpa = packageLpa;
     }
 
+    void printRecord() {
+        System.out.println(studentName + " -> " + company + " @ " + packageLpa + " LPA");
+    }
+}
+
+public class PlacementRecords {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        PlacementRecord[] records = {
+            new PlacementRecord("Ravi", "TCS", 4.5),
+            new PlacementRecord("Anitha", "Zoho", 6.2),
+            new PlacementRecord("Karthik", "Infosys", 4.0)
+        };
 
-        System.out.print("Enter customer name: ");
-        String customerName = sc.nextLine();
-
-        String reversedName = reverseCustomerName(customerName);
-
-        System.out.println("Original Name: " + customerName);
-        System.out.println("Reversed Name: " + reversedName);
-
-        sc.close();
+        for (PlacementRecord record : records) {
+            record.printRecord();
+        }
     }
 }
