@@ -1,55 +1,61 @@
-package string.assigment_problems;
-
 import java.util.Scanner;
 
-public class TypingAccuracy {
+public class NormalizeCode {
 
-    static void checkTypingAccuracy(String original, String typed) {
+    static String normalizeCode(String raw) {
 
-        int matched = 0;
-        int firstMismatch = -1;
+        raw = raw.trim();
 
-        for (int i = 0; i < original.length(); i++) {
+        String publisher = raw.substring(0, 3).toUpperCase();
+        String rest = raw.substring(3);
 
-            if (original.charAt(i) == typed.charAt(i)) {
-                matched++;
-            } 
-            else if (firstMismatch == -1) {
-                firstMismatch = i;
+        return publisher + rest;
+    }
+
+    static String validateAndFormat(String code) {
+
+        if (code.length() != 13) {
+            return "Invalid: wrong length";
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (!Character.isLetter(code.charAt(i))) {
+                return "Invalid: publisher code must be 3 letters";
             }
         }
 
-        double accuracy = (matched * 100.0) / original.length();
-
-        System.out.printf(
-            "Matched: %d/%d | Accuracy: %.2f%%",
-            matched, original.length(), accuracy
-        );
-
-        if (firstMismatch == -1) {
-            System.out.println(" | No Mismatches");
-        } 
-        else {
-            System.out.println(
-                " | First Mismatch at position " +
-                (firstMismatch + 1) +
-                " ('" + original.charAt(firstMismatch) +
-                "' vs '" + typed.charAt(firstMismatch) + "')"
-            );
+        for (int i = 3; i < 13; i++) {
+            if (!Character.isDigit(code.charAt(i))) {
+                return "Invalid: body must contain only digits";
+            }
         }
+
+        String publisher = code.substring(0, 3);
+        String year = code.substring(3, 7);
+        String catalog = code.substring(7, 13);
+
+        StringBuilder result = new StringBuilder();
+
+        result.append("[");
+        result.append(publisher);
+        result.append("] YEAR: ");
+        result.append(year);
+        result.append(" | CATALOG: ");
+        result.append(catalog);
+
+        return result.toString();
     }
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter original text: ");
-        String original = sc.nextLine();
+        System.out.print("Enter ISBN code: ");
+        String raw = sc.nextLine();
 
-        System.out.print("Enter typed text: ");
-        String typed = sc.nextLine();
+        String code = normalizeCode(raw);
 
-        checkTypingAccuracy(original, typed);
+        System.out.println(validateAndFormat(code));
 
         sc.close();
     }
