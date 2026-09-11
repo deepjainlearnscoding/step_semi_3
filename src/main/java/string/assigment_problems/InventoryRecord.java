@@ -1,34 +1,20 @@
-package string.assigment_problems;
-
 import java.util.Scanner;
 
-public class  LongestStreak{
+public class q3 {
 
-    static void findLongestStreak(String signalLog) {
+    static void parseInventoryRecord(String csvLine) {
 
-        int currentCount = 1;
-        int maxCount = 1;
+        String[] data = csvLine.split(",");
 
-        char maxColor = signalLog.charAt(0);
-
-        for (int i = 1; i < signalLog.length(); i++) {
-
-            if (signalLog.charAt(i) == signalLog.charAt(i - 1)) {
-                currentCount++;
-            } 
-            else {
-                currentCount = 1;
-            }
-
-            if (currentCount > maxCount) {
-                maxCount = currentCount;
-                maxColor = signalLog.charAt(i);
-            }
+        if (data.length != 3) {
+            System.out.println("Invalid Record");
+            return;
         }
 
         System.out.println(
-            "Longest Streak: '" + maxColor +
-            "' repeated " + maxCount + " times"
+            "Product: " + data[0] +
+            " | SKU: " + data[1] +
+            " | Qty: " + data[2]
         );
     }
 
@@ -36,10 +22,10 @@ public class  LongestStreak{
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter signal log: ");
-        String signalLog = sc.next();
+        System.out.print("Enter product record: ");
+        String csvLine = sc.nextLine();
 
-        findLongestStreak(signalLog);
+        parseInventoryRecord(csvLine);
 
         sc.close();
     }
