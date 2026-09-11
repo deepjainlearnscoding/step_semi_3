@@ -1,37 +1,36 @@
-import java.util.Scanner;
+class IdCard {
 
-public class PhoneNumber {
+    String name;
+    int booksIssued;
 
-    static String maskPhoneNumber(String phone) {
-
-        if (phone.length() != 10) {
-            return "Invalid phone number";
-        }
-
-        for (int i = 0; i < phone.length(); i++) {
-
-            if (!Character.isDigit(phone.charAt(i))) {
-                return "Invalid phone number";
-            }
-        }
-
-        StringBuilder result = new StringBuilder("XXXXXX");
-
-        result.insert(6, "-");
-        result.append(phone.substring(6));
-
-        return result.toString();
+    IdCard(String name, int booksIssued) {
+        this.name = name;
+        this.booksIssued = booksIssued;
     }
+}
 
+public class studentinfo {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        IdCard ravi = new IdCard("Ravi", 0);
 
-        System.out.print("Enter phone number: ");
-        String phone = sc.nextLine();
+        IdCard duplicate = ravi;
 
-        System.out.println(maskPhoneNumber(phone));
+        duplicate.booksIssued = 3;
 
-        sc.close();
+        IdCard separate = new IdCard("Ravi", 3);
+
+        System.out.println(
+            "Ravi's booksIssued (via first variable): "
+            + ravi.booksIssued
+        );
+
+        System.out.println(
+            "duplicate == ravi: " + (duplicate == ravi)
+        );
+
+        System.out.println(
+            "separate == ravi: " + (separate == ravi)
+        );
     }
 }
